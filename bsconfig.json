@@ -1,5 +1,5 @@
 {
-  "name": "@lidcore/bs-node",
+  "name": "@toots/bs-node",
   "namespace": true,
   "sources": ["src"],
   "package-specs": {

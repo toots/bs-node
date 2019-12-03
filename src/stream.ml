@@ -20,8 +20,8 @@ type write_events = [
 
 type events = [write_events | read_events]
 
-external pipe : readable -> writable -> unit = "" [@@bs.send]
-external on : 'a t -> string -> ('b -> unit) -> unit = "" [@@bs.send]
+external pipe : readable -> writable -> unit = "pipe" [@@bs.send]
+external on : 'a t -> string -> ('b -> unit) -> unit = "on" [@@bs.send]
 
 let on str = function
   | `Close    fn -> on str "close"    fn

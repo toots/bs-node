@@ -13,7 +13,7 @@ type event = [
   | `SIGSEV   of unit -> unit
 ]
 
-external on : string -> ('a -> unit) -> unit = "" [@@bs.val] [@@bs.scope "process"]
+external on : string -> ('a -> unit) -> unit = "on" [@@bs.val] [@@bs.scope "process"]
 
 let on = function
   | `UncaughtException fn -> on "uncaughtException" fn
@@ -29,10 +29,10 @@ let on = function
   | `SIGFPE fn   -> on "SIGFPE" fn
   | `SIGSEV fn   -> on "SIGSEV" fn
 
-external argv : string array = "" [@@bs.val] [@@bs.scope "process"]
+external argv : string array = "argv" [@@bs.val] [@@bs.scope "process"]
 
-external exit : int -> 'a = "" [@@bs.val] [@@bs.scope "process"]
+external exit : int -> 'a = "exit" [@@bs.val] [@@bs.scope "process"]
 
-external stdin : Stream.readable = "" [@@bs.val] [@@bs.scope "process"]
-external stderr : Stream.writable = "" [@@bs.val] [@@bs.scope "process"]
-external stdout : Stream.writable = "" [@@bs.val] [@@bs.scope "process"]
+external stdin : Stream.readable = "stdin" [@@bs.val] [@@bs.scope "process"]
+external stderr : Stream.writable = "stderr" [@@bs.val] [@@bs.scope "process"]
+external stdout : Stream.writable = "stdout" [@@bs.val] [@@bs.scope "process"]

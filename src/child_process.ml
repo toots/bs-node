@@ -32,13 +32,13 @@ type event = [
 
 type 'a callback = 'a -> string -> string -> unit [@bs]
 
-external exec : string -> 'a callback -> unit = "" [@@bs.module "child_process"]
+external exec : string -> 'a callback -> unit = "exec" [@@bs.module "child_process"]
 
 let exec cmd cb =
   exec cmd (fun [@bs] err stdout stderr ->
     cb err (stdout, stderr) [@bs])
 
-external execSync : string -> Buffer.t = "" [@@bs.module "child_process"]
+external execSync : string -> Buffer.t = "execSync" [@@bs.module "child_process"]
 
 let execSync cmd =
   Buffer.toString (execSync cmd)
@@ -58,7 +58,7 @@ type execFileOptions = {
 } [@@bs.deriving abstract]
 
 external execFile :
-  string -> string array -> execFileOptions -> 'a callback -> unit = "" [@@bs.module "child_process"]
+  string -> string array -> execFileOptions -> 'a callback -> unit = "execFile" [@@bs.module "child_process"]
 
 let execFile ?cwd ?env ?encoding ?timeout ?maxBuffer
              ?killSignal ?uid ?gid ?windowsHide
@@ -79,7 +79,7 @@ type spawnOptions = {
   shell:     bool [@bs.optional]
 } [@@bs.deriving abstract]
 
-external spawn : string -> spawnOptions -> t = "" [@@bs.module "child_process"]
+external spawn : string -> spawnOptions -> t = "spawn" [@@bs.module "child_process"]
 
 let spawn ?cwd ?env ?stdio ?shell cmd =
   let stdio =
@@ -93,7 +93,7 @@ let spawn ?cwd ?env ?stdio ?shell cmd =
   in
   spawn cmd options
 
-external on : t -> string -> 'a -> unit = "" [@@bs.send]
+external on : t -> string -> 'a -> unit = "on" [@@bs.send]
 
 let on p = function
   | `Error fn ->
@@ -106,6 +106,6 @@ let on p = function
           | None, Some signal -> fn (`Signal signal)
           | _ -> assert false)
 
-external stdin : t -> Stream.writable = "" [@@bs.get]
-external stdout : t -> Stream.readable = "" [@@bs.get]
-external stderr : t -> Stream.readable = "" [@@bs.get]
+external stdin : t -> Stream.writable = "stdin" [@@bs.get]
+external stdout : t -> Stream.readable = "stdout" [@@bs.get]
+external stderr : t -> Stream.readable = "stderr" [@@bs.get]

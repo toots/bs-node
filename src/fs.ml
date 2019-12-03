@@ -31,7 +31,7 @@ type constants = {
   x_ok : int [@bs.as "X_OK"]
 } [@@bs.deriving abstract]
 
-external constants : constants  = "" [@@bs.module "fs"] 
+external constants : constants  = "constants" [@@bs.module "fs"] 
 
 type flag = [
   | `COPYFILE_EXCL
@@ -60,7 +60,7 @@ let int_of_access = function
 type stream_params
 external stream_params : ?fd:int -> ?autoClose:bool -> unit -> stream_params = "" [@@bs.obj]
 
-external access : string -> unit callback -> unit = "" [@@bs.module "fs"]
+external access : string -> unit callback -> unit = "access" [@@bs.module "fs"]
 external accessWithMode : string -> int -> unit callback -> unit = "access" [@@bs.module "fs"]
 
 let access ?(mode=[]) path cb =
@@ -72,7 +72,7 @@ let access ?(mode=[]) path cb =
     in
     accessWithMode path mode cb
 
-external copyFileSync : string -> string -> int -> unit = "" [@@bs.module "fs"]
+external copyFileSync : string -> string -> int -> unit = "copyFileSync" [@@bs.module "fs"]
 
 let copyFileSync ?(flags=[]) src dst =
   let flag = List.fold_left (fun x y ->
@@ -80,27 +80,27 @@ let copyFileSync ?(flags=[]) src dst =
   in
   copyFileSync src dst flag
 
-external createReadStream  : string Js.nullable -> stream_params -> Stream.readable = "" [@@bs.module "fs"]
-external createWriteStream : string Js.nullable -> stream_params -> Stream.writable = "" [@@bs.module "fs"]
-external existsSync : string -> bool = "" [@@bs.module "fs"]
-external unlinkSync : string -> unit = "" [@@bs.module "fs"]
-external rmdirSync : string -> unit = "" [@@bs.module "fs"]
-external read : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
+external createReadStream  : string Js.nullable -> stream_params -> Stream.readable = "createReadStream" [@@bs.module "fs"]
+external createWriteStream : string Js.nullable -> stream_params -> Stream.writable = "createWriteStream" [@@bs.module "fs"]
+external existsSync : string -> bool = "existsSync" [@@bs.module "fs"]
+external unlinkSync : string -> unit = "unlinkSync" [@@bs.module "fs"]
+external rmdirSync : string -> unit = "rmdirSync" [@@bs.module "fs"]
+external read : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "read" [@@bs.module "fs"]
 
 type readFile_params = {
   encoding: string [@bs.optional];
   flag: string
 } [@@bs.deriving abstract]
 
-external readFile : string -> readFile_params -> Buffer.t callback -> unit = "" [@@bs.module "fs"]
-external readFileSync : string -> readFile_params -> Buffer.t = "" [@@bs.module "fs"]
-external realpathSync : string -> string = "" [@@bs.module "fs"]
-external write : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "" [@@bs.module "fs"]
-external writeFile : string -> string -> unit callback -> unit = "" [@@bs.module "fs"]
-external writeFileSync : string -> string -> unit = "" [@@bs.module "fs"]
+external readFile : string -> readFile_params -> Buffer.t callback -> unit = "readFile" [@@bs.module "fs"]
+external readFileSync : string -> readFile_params -> Buffer.t = "readFileSync" [@@bs.module "fs"]
+external realpathSync : string -> string = "realpathSync" [@@bs.module "fs"]
+external write : int -> Buffer.t -> float -> float -> float Js.Nullable.t -> (exn Js.Nullable.t -> float -> Buffer.t -> unit) -> unit = "write" [@@bs.module "fs"]
+external writeFile : string -> string -> unit callback -> unit = "writeFile" [@@bs.module "fs"]
+external writeFileSync : string -> string -> unit = "writeFileSync" [@@bs.module "fs"]
 (* open is a keywork in OCaml.. *)
 external openFile : string -> string -> int callback -> unit = "open" [@@bs.module "fs"]
-external close : int -> unit callback -> unit = "" [@@bs.module "fs"]
+external close : int -> unit callback -> unit = "close" [@@bs.module "fs"]
 
 let read ?position ?(offset=0.) ?length fd buffer cb =
   let position =
@@ -144,5 +144,5 @@ let readFile path =
 let readFileSync path =
   readFileSync path (readFile_params ~flag:"r" ())
 
-external isDirectory : stats -> bool = "" [@@bs.send]
-external statSync : string -> stats = "" [@@bs.module "fs"]
+external isDirectory : stats -> bool = "isDirectory" [@@bs.send]
+external statSync : string -> stats = "statSync" [@@bs.module "fs"]

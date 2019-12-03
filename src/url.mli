@@ -1,4 +1,4 @@
-type t = <
+type t = {
   hash:     string;
   host:     string;
   hostname: string;
@@ -10,7 +10,7 @@ type t = <
   protocol: string;
   search:   string;
   username: string
-> Js.t
+}
 
 val parse :   string -> t
 val toString: t -> string

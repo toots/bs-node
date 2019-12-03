@@ -1,4 +1,4 @@
-type t = <
+type t = {
   hash:     string;
   host:     string;
   hostname: string;
@@ -10,8 +10,8 @@ type t = <
   protocol: string;
   search:   string;
   username: string
-> Js.t
+}
 
-external parse : string -> t = "" [@@bs.module "url"]
-external toString: t -> string = "" [@@bs.send]
-external toJson: t -> string = "" [@@bs.send]
+external parse : string -> t = "parse" [@@bs.module "url"]
+external toString: t -> string = "toString" [@@bs.send]
+external toJson: t -> string = "toJson" [@@bs.send]

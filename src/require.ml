@@ -10,7 +10,7 @@ type t = {
   paths: string array
 } [@@bs.deriving abstract]
 
-external main : t = "" [@@bs.val] [@@bs.scope "require"]
-external resolve : string -> string array Js.Nullable.t -> string = "" [@@bs.val] [@@bs.scope "require"]
+external main : t = "main" [@@bs.val] [@@bs.scope "require"]
+external resolve : string -> string array Js.Nullable.t -> string = "resolve" [@@bs.val] [@@bs.scope "require"]
 let resolve ?paths name =
   resolve name (Js.Nullable.fromOption paths)

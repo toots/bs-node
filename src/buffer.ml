@@ -1,8 +1,8 @@
 type t
 
-external length : t -> float = "" [@@bs.get]
+external length : t -> float = "length" [@@bs.get]
 
-external toString : t -> string -> float -> float -> string = "" [@@bs.send]
+external toString : t -> string -> float -> float -> string = "toString" [@@bs.send]
 let toString ?(encoding="utf8") ?(start=0.) ?stop buffer =
   let stop =
     match stop with
@@ -13,13 +13,13 @@ let toString ?(encoding="utf8") ?(start=0.) ?stop buffer =
 
 type buffer_class
 external buffer_class : buffer_class = "Buffer" [@@bs.val]
-external alloc : buffer_class -> float -> t = "" [@@bs.send]
+external alloc : buffer_class -> float -> t = "alloc" [@@bs.send]
 let alloc = alloc buffer_class
 
-external concat : buffer_class -> t array -> t = "" [@@bs.send]
+external concat : buffer_class -> t array -> t = "concat" [@@bs.send]
 let concat = concat buffer_class
 
-external from : buffer_class -> string -> string Js.Nullable.t -> t = "" [@@bs.send]
+external from : buffer_class -> string -> string Js.Nullable.t -> t = "from" [@@bs.send]
 let from ?encoding data =
   from buffer_class data (Js.Nullable.fromOption encoding)
 

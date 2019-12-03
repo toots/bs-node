@@ -6,6 +6,7 @@
     "module": "commonjs",
     "in-source": true
   },
+  "suffix": ".bs.js",
   "bsc-flags": [
     "-bs-super-errors"
   ],
